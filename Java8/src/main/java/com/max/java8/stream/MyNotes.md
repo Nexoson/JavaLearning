@@ -1,5 +1,7 @@
 # Java8 Stream
 
+参考: https://blog.csdn.net/mu_wind/article/details/109516995
+
 ## 1 .Stream概述
 
 Java8 是一个非常成功的版本,这个版本新增的Stream, 配合同版本出现的Lambda,给我们操作集合(Collection)提供了极大的便利
