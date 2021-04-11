@@ -1,5 +1,6 @@
 package com.max.java8.stream.common.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
  * @Descripition 员工类
  **/
 @Data
+@AllArgsConstructor
 public class Person {
 
     private String name; // 姓名
