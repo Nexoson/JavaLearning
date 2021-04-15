@@ -4,7 +4,7 @@
 
 ### 1.BeanUtils.copyProperties(src,target)
 
-### 2.fastjson地址序列化
+### 2.fastjson定制序列化
 
 ### 3.堆栈空间扩展
 
