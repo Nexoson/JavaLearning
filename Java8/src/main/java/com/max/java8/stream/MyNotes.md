@@ -303,3 +303,100 @@ list中大于6的元素个数：4
 每个元素+3：[4, 6, 8, 10, 12, 14]
 ```
 
+**案例二：将员工的薪资全部增加1000。**
+
+```java
+    @Test
+    public void test02() {
+        List<Person> personList = Person.getPersonList();
+        // 不改变原来员工集合的方式
+        List<Person> personListNew = personList.stream().map(person -> {
+            Person personNew = new Person(person.getName(), 0, 0, null, null);
+            personNew.setSalary(person.getSalary() + 1000);
+            return personNew;
+        }).collect(Collectors.toList());
+        System.out.println("一次改动前：" + personList.get(0).getName() + "-->" + personList.get(0).getSalary());
+        System.out.println("一次改动后：" + personListNew.get(0).getName() + "-->" + personListNew.get(0).getSalary());
+
+        // 改变原来员工集合的方式
+        List<Person> personListNew2 = personList.stream().map(person -> {
+            person.setSalary(person.getSalary() + 1000);
+            return person;
+        }).collect(Collectors.toList());
+
+        System.out.println("二次改动前：" + personList.get(0).getName() + "-->" + personListNew.get(0).getSalary());
+        System.out.println("二次改动后：" + personListNew2.get(0).getName() + "-->" + personListNew.get(0).getSalary());
+    }
+```
+
+```
+一次改动前：Tom-->8900
+一次改动后：Tom-->9900
+二次改动前：Tom-->9900
+二次改动后：Tom-->9900
+```
+
+**案例三：将两个字符数组合并成一个新的字符数组。**
+
+```java
+    @Test
+    public void test03() {
+        List<String> list = Arrays.asList("m,k,l,a", "1,3,5,7");
+        List<String> listNew = list.stream().flatMap(s -> {
+            // 将每个元素转换成一个stream
+            String[] split = s.split(",");
+            return Arrays.stream(split);
+        }).collect(Collectors.toList());
+
+        System.out.println("处理前的集合：" + list);
+        System.out.println("处理后的集合：" + listNew);
+    }
+```
+
+```
+处理前的集合：[m,k,l,a, 1,3,5,7]
+处理后的集合：[m, k, l, a, 1, 3, 5, 7]
+```
+
+### 3.5  归约(reduce)
+
+归约,也称缩减,顾名思义,是把一个流缩减成一个值,能实现对集合求和,求乘积和求最值操作
+
+![img](image/MyNotes/20201109145706497.png)
+
+**案例一：求`Integer`集合的元素之和、乘积和最大值。**
+
+```java
+    @Test
+    public void test01() {
+        List<Integer> list = Arrays.asList(1, 3, 2, 8, 11, 4);
+        // 求和方式1
+        Optional<Integer> sum = list.stream().reduce((x, y) -> x + y);
+        // 求和方式2
+        Optional<Integer> sum2 = list.stream().reduce(Integer::sum);
+        // 求和方式3
+        Integer sum3 = list.stream().reduce(0, Integer::sum);
+        // 求乘积
+        Optional<Integer> product = list.stream().reduce((x, y) -> x * y);
+        // 求最大值方式1
+        Optional<Integer> max = list.stream().reduce((x, y) -> x > y ? x : y);
+        // 求最大值方式2
+        Integer max2 = list.stream().reduce(1, Integer::max);
+        System.out.println("list求和：" + sum.get() + "," + sum2.get() + "," + sum3);
+        System.out.println("list求积：" + product.get());
+        System.out.println("list求最大值：" + max.get() + "," + max2);
+    }
+```
+
+```
+list求和：29,29,29
+list求积：2112
+list求和：11,11
+```
+
+**案例二：求所有员工的工资之和和最高工资。**
+
+```
+
+```
+
