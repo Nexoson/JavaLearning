@@ -11,7 +11,7 @@ import java.util.Optional;
  * @Version 1.0
  * @Descripition 遍历/匹配（foreach/find/match）
  **/
-public class StreamMatchDemo {
+public class StreamMatchTest {
 
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(7, 6, 9, 3, 8, 2, 1);

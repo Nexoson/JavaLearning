@@ -9,12 +9,12 @@ import java.util.Optional;
 
 /**
  * @ClassName StreamReduceDemo
- * @Auther huangX
  * @Date 2021/4/11 17:27
+ * @author 黄迅
  * @Version 1.0
  * @Descripition 归约(reduce)
  **/
-public class StreamReduceDemo {
+public class StreamReduceTest {
 
 
     /**

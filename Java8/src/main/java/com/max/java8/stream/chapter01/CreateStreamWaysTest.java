@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  * @Descripition 创建流的几种方式
  **/
 @Slf4j
-public class CreateStreamWays {
+public class CreateStreamWaysTest {
     public static void main(String[] args) {
     }
 

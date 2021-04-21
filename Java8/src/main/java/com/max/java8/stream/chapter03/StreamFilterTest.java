@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * @Version 1.0
  * @Descripition 筛选（filter）
  **/
-public class StreamFilterDemo {
+public class StreamFilterTest {
 
 
     /**

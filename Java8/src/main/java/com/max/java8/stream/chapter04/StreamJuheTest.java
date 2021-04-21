@@ -15,7 +15,7 @@ import java.util.Optional;
  * @Version 1.0
  * @Descripition 聚合（max/min/count)
  **/
-public class StreamJuheDemo {
+public class StreamJuheTest {
 
 
     /**

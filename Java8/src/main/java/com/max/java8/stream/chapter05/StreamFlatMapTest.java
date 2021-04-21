@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * @Version 1.0
  * @Descripition 映射(map / flatMap)
  **/
-public class StreamFlatMapDemo {
+public class StreamFlatMapTest {
 
 
     /**
