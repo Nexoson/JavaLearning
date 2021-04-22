@@ -44,6 +44,10 @@ public class StreamReduceTest {
         System.out.println("list求最大值：" + max.get() + "," + max2);
     }
 
+
+    /**
+     * 求所有员工的工资之和和最高工资
+     **/
     @Test
     public void test02() {
         List<Person> personList = Person.getPersonList();
