@@ -143,7 +143,4 @@ public class StreamCollectTest {
         Optional<Integer> sum2 = personList.stream().map(Person::getSalary).reduce(Integer::sum);
         System.out.println("员工薪资总和：" + sum2.get());
     }
-
-
-
 }
