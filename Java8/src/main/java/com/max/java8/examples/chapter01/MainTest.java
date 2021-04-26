@@ -68,5 +68,29 @@ public class MainTest {
         products.forEach(info -> System.out.println(info.toString()));
     }
 
+    /**
+     * 使用Stream API
+     **/
+    @Test
+    public void test04() {
+        List<Product> proList = Product.getBaseProductList();
+
+        // 根据价格过滤
+        proList.stream()
+                .filter((p) -> p.getPrice() > 8000)
+                .limit(3)
+                .forEach(System.out::println);
+        // 根据颜色过滤
+        proList.stream()
+                .filter((p) -> "红".equals(p.getColor()))
+                .forEach(System.out::println);
+        // 遍历输出商品名称
+        proList.stream()
+//                .map(p -> p.getColor())
+                .map(Product::getColor)
+                .forEach(System.out::println);
+
+    }
+
 
 }
