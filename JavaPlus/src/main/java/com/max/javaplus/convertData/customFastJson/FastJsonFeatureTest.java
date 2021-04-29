@@ -20,7 +20,7 @@ import java.util.List;
  * @desc FastJson   SerializerFeature枚举类  官方自定义常用序列化场景
  **/
 @Slf4j
-public class FastJsonFeatureJunit {
+public class FastJsonFeatureTest {
 
 
     /**

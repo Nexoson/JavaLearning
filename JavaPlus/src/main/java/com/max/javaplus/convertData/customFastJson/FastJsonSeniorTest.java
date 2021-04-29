@@ -18,7 +18,7 @@ import java.util.List;
  * @desc fastjson 定制过滤 PropertyFilter
  **/
 @Slf4j
-public class FastJsonSeniorJunit {
+public class FastJsonSeniorTest {
 
     /**
      * PropertyFilter
