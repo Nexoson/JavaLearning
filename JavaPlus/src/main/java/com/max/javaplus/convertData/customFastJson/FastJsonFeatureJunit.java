@@ -1,6 +1,7 @@
 package com.max.javaplus.convertData.customFastJson;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.PascalNameFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -81,7 +82,7 @@ public class FastJsonFeatureJunit {
     public void test06() {
         List<Person> basicJsonData = getBasicJsonData();
         log.info("初始数据: " + JSON.toJSONString(basicJsonData));
-        log.info("定制数据: " + JSON.toJSONString(basicJsonData,SerializerFeature.WriteNullNumberAsZero));
+        log.info("定制数据: " + JSON.toJSONString(basicJsonData, SerializerFeature.WriteNullNumberAsZero));
     }
 
 
@@ -105,6 +106,21 @@ public class FastJsonFeatureJunit {
 
     }
 
+    /**
+     * PascalNameFilter
+     * 将对象中所有字段的首字母大写
+     **/
+    @Test
+    public void test09() {
+        List<Person> basicJsonData = getBasicJsonData();
+
+        // 初始数据
+        log.info("原始序列化数据              :" + JSON.toJSONString(basicJsonData));
+        log.info("去除ref序列化数据           :" + JSON.toJSONString(basicJsonData, SerializerFeature.DisableCircularReferenceDetect));
+        // 将对象字段首字母转为大写
+        log.info("去除ref/首字母大写序列化数据 :" + JSON.toJSONString(basicJsonData, new PascalNameFilter(), SerializerFeature.DisableCircularReferenceDetect));
+
+    }
 
     public List<Person> getBasicJsonData() {
         List<Person> data = new ArrayList<>(8);
