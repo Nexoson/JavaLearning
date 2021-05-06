@@ -73,6 +73,14 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.8.1</version>
         </dependency>
+        <!--查看内存地址-->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.15</version>
+        </dependency>
+
     </dependencies>
 
     <build>
