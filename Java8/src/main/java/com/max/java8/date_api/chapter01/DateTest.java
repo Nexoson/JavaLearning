@@ -3,6 +3,7 @@ package com.max.java8.date_api.chapter01;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -172,15 +173,120 @@ public class DateTest {
     }
 
     /**
-     * 处理时区 获取特定时区下面的时间
+     * ZonedDateTime 带时区的时间
+     * Java 8不仅分离了日期和时间，也把时区分离出来了。现在有一系列单独的类如 ZoneId 来处理特定时区，ZoneDateTime 类来表示某时区下的时间
      **/
     @Test
     public void getZoneTime() {
-        // todo 待验证
-        // 设置时区
-        ZoneId america = ZoneId.of("America/New_York");
-        LocalDateTime localDateNow = LocalDateTime.now();
-        ZonedDateTime dateAndTimeInNewYork = ZonedDateTime.of(localDateNow, america);
-        System.out.println("现在的日期和时间在特定的时区 : " + dateAndTimeInNewYork);
+        // 默认时区
+        ZonedDateTime zbj = ZonedDateTime.now();
+        // 用指定时区获取当前时间
+        ZoneId of = ZoneId.of("America/New_York");
+        ZonedDateTime zny = ZonedDateTime.now(of);
+        System.out.println(zbj);
+        System.out.println(zny);
+
+
+        LocalDateTime ldt = LocalDateTime.of(2019, 9, 15, 15, 16, 17);
+        ZonedDateTime defaultZone = ldt.atZone(ZoneId.systemDefault());
+        ZonedDateTime newZone = ldt.atZone(ZoneId.of("America/New_York"));
+        System.out.println(defaultZone);
+        System.out.println(newZone);
+    }
+
+
+    /**
+     * 使用 YearMonth类处理特定的日期
+     * <p>
+     * 表示信用卡到期这类固定日期。与 MonthDay 检查重复事件的例子相似，YearMonth 是另一个组合类，
+     * 用于表示信用卡到期日、FD到期日、期货期权到期日等。还可以用这个类得到 当月共有多少天，
+     * YearMonth 实例的 lengthOfMonth() 方法可以返回当月的天数，在判断2月有28天还是29天时非常有用
+     **/
+    @Test
+    public void checkCardExpiry() {
+
+        YearMonth currentYearMonth = YearMonth.now();
+        System.out.printf("Days in month year %s: %d%n", currentYearMonth, currentYearMonth.lengthOfMonth());
+
+        YearMonth creditCardExpiry = YearMonth.of(2021, Month.MAY);
+        System.out.printf("Your credit card expires on %s %n", creditCardExpiry);
+    }
+
+
+    /**
+     * 检查闰年
+     * <p>
+     * LocalDate类有一个很实用的方法 isLeapYear() 判断该实例是否是一个闰年，
+     * 如果你还是想重新发明轮子，这有一个代码示例，纯Java逻辑编写的判断闰年的程序
+     **/
+    @Test
+    public void isLeapYear() {
+
+        LocalDate now = LocalDate.now();
+        if (now.isLeapYear()) {
+            System.out.println("This year is Leap year");
+        } else {
+            System.out.println(LocalDate.now().getYear() + " is not a Leap year");
+        }
+    }
+
+
+    /**
+     * 计算两个日期之间的天数和月数
+     * <p>
+     * 有一个常见日期操作是计算两个日期之间的天数、周数或月数。
+     * 在Java 8中可以用java.time.Period类来做计算。下面这个例子中，
+     * 我们计算了当天和将来某一天之间的月数。下面的例子：现在是一月份，距离到五月份，中间相隔3月
+     **/
+    @Test
+    public void calcDateDays() {
+        LocalDate today = LocalDate.now();
+        LocalDate define = LocalDate.of(2020, Month.AUGUST, 9);
+        Period between = Period.between(define, today);
+        System.out.println(" years " + between.getYears() + " months " + between.getMonths() + " days " + between.getDays());
+    }
+
+
+    /**
+     * 包含时差信息的日期和时间
+     * <p>
+     * ZoneOffset类用来表示时区，举例来说印度与GMT或UTC标准时区相差+05:30，
+     * 可以通过ZoneOffset.of()静态方法来 获取对应的时区。
+     * 一旦得到了时差就可以通过传入LocalDateTime和ZoneOffset来创建一个OffSetDateTime对象
+     **/
+    @Test
+    public void zoneOffset() {
+
+        // LocalDateTime datetime = LocalDateTime.of(2021, Month.FEBRUARY, 14, 19, 30);
+        LocalDateTime datetime = LocalDateTime.now();
+        ZoneOffset offset = ZoneOffset.of("+05:30");
+        OffsetDateTime date = OffsetDateTime.of(datetime, offset);
+        System.out.println("Date and Time with timezone offset in Java : " + date);
+    }
+
+
+    /**
+     * 获取当前的时间戳
+     * <p>
+     * Instant类有一个静态工厂方法now()会返回当前的时间戳，如下所示:
+     **/
+    @Test
+    public void getTimestamp() {
+        Instant timestamp = Instant.now();
+        System.out.println("What is value of this instant " + timestamp);
+    }
+
+
+    /**
+     * 使用预定义的格式化工具去解析或格式化日期
+     * <p>
+     * Java 8引入了全新的日期时间格式工具，线程安全而且使用方便。
+     * 它自带了一些常用的内置格式化工具。下面这个例子使用了BASIC_ISO_DATE格式化工具将2018年2月10日格式化成20180210
+     **/
+    @Test
+    public void formatDate() {
+        String dayAfterTomorrow = "20210507";
+        LocalDate formatted = LocalDate.parse(dayAfterTomorrow, DateTimeFormatter.BASIC_ISO_DATE);
+        System.out.printf("Date generated from String %s is %s %n", dayAfterTomorrow, formatted);
     }
 }
