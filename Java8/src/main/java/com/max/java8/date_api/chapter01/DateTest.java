@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.zone.ZoneRules;
 import java.util.Date;
+import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -288,5 +291,89 @@ public class DateTest {
         String dayAfterTomorrow = "20210507";
         LocalDate formatted = LocalDate.parse(dayAfterTomorrow, DateTimeFormatter.BASIC_ISO_DATE);
         System.out.printf("Date generated from String %s is %s %n", dayAfterTomorrow, formatted);
+    }
+
+
+    /**
+     * 处理夏令时(todo 待验证)
+     **/
+    @Test
+    public void summerDate() {
+        //预计不在夏令时 2021-03-13 01:59:59
+        LocalDateTime time4 = LocalDateTime.of(2020, 1, 8, 14, 59, 59);
+        getZongTime2(time4, ZoneId.of("America/New_York"));
+
+        //预计在夏令时 2021-03-13 03:00:00
+        LocalDateTime time1 = LocalDateTime.of(2020, 1, 8, 15, 00, 00);
+        getZongTime2(time1, ZoneId.of("America/New_York"));
+
+        //预计在夏令时 2021-11-06 02:59:59
+        LocalDateTime time2 = LocalDateTime.of(2020, 11, 6, 14, 59, 59);
+        getZongTime2(time2, ZoneId.of("America/New_York"));
+
+        //预计不在夏令时2021-11-06 02:00:00
+        LocalDateTime time3 = LocalDateTime.of(2020, 11, 6, 15, 00, 00);
+        getZongTime2(time3, ZoneId.of("America/New_York"));
+    }
+
+    public void getZongTime2(LocalDateTime time, ZoneId dest) {
+        Objects.requireNonNull(dest);
+        getZongTime2(time, null, dest);
+    }
+
+    public void getZongTime2(LocalDateTime time, ZoneId src, ZoneId dest) {
+        //难点就是如何求偏移量
+        //这里使用默认时区,在中国的就是中国,在美国的就是美国,这样估计更合适
+        Objects.requireNonNull(dest);
+        ZonedDateTime z1 = null;
+        if (src == null) {
+            z1 = time.atZone(ZoneId.systemDefault());
+        } else {
+            z1 = time.atZone(src);
+        }
+//
+        ZonedDateTime z2 = z1.withZoneSameInstant(dest);
+        //处理重叠问题
+        long hours = Duration.between(z2.withEarlierOffsetAtOverlap(), z2.withLaterOffsetAtOverlap()).toHours();
+        z2 = z2.plusHours(hours);
+
+        System.out.println(dest.getId() + " 对应的标准时区:" + getZoneDesc(TimeZone.getTimeZone(dest)));
+        System.out.println("标准时区时间: " + time);
+        System.out.println("目标时区" + dest + "的时间" + z2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        System.out.println();
+    }
+
+    /**
+     * 获取标准时区,方式1
+     * 在jdk8之前的方法,利用TimeZone
+     **/
+    private static String getZoneDesc(TimeZone destzone) {
+        Objects.requireNonNull(destzone);
+        int Offset = destzone.getRawOffset() / (1000 * 60 * 60);
+        if (Offset <= 0) {
+            return "GMT" + String.valueOf(Offset);
+        } else {
+            return "GMT+" + String.valueOf(Offset);
+        }
+    }
+
+    /**
+     * 方式2:ZoneRules.getOffset
+     **/
+    private String getZoneDesc2(ZoneId dest) {
+        Objects.requireNonNull(dest);
+        ZoneRules rule = dest.getRules();
+        //获取时区的标准偏移量
+        String standardOffset = rule.getStandardOffset(ZonedDateTime.now(dest).toInstant()).getId();
+        String s = standardOffset.split(":")[0];
+        int Offset = Integer.parseInt(s);
+        //返回方式1:带小时分钟
+//	    	return "GMT"+standardOffset;
+        //返回方式2:只带小时数
+        if (Offset > 0) {
+            return "GMT+" + Offset;
+        } else {
+            return "GMT" + Offset;
+        }
     }
 }
