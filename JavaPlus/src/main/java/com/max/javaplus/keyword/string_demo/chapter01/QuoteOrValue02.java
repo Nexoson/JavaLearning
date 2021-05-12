@@ -15,14 +15,13 @@ public class QuoteOrValue02 {
         MyClass myClass = new MyClass();
         StringBuffer buffer = new StringBuffer("hello");
         //通过jol工具包打印对象的地址
-//        System.out.println("对象内部: " + ClassLayout.parseInstance(buffer).toPrintable());
-        System.out.println("对象外部: " + GraphLayout.parseInstance(buffer).toPrintable());
+        System.out.println("" + ClassLayout.parseInstance(buffer).toPrintable());
+        System.out.println("对象: " + GraphLayout.parseInstance(buffer).toPrintable());
 
 
         myClass.changeValue2(buffer);
         System.out.println(buffer);
-//        System.out.println("对象内部: " + ClassLayout.parseInstance(buffer).toPrintable());
-        System.out.println("对象外部: " + GraphLayout.parseInstance(buffer).toPrintable());
+        System.out.println("对象: " + GraphLayout.parseInstance(buffer).toPrintable());
     }
 
     static class MyClass {
@@ -33,11 +32,9 @@ public class QuoteOrValue02 {
 
         void changeValue2(StringBuffer buffer) {
             System.out.println("进来了");
-            System.out.println("对象内部: " + ClassLayout.parseInstance(buffer).toPrintable());
-            System.out.println("对象外部: " + GraphLayout.parseInstance(buffer).toPrintable());
+            System.out.println("对象: " + GraphLayout.parseInstance(buffer).toPrintable());
             buffer = new StringBuffer("abc");
-            System.out.println("对象内部: " + ClassLayout.parseInstance(buffer).toPrintable());
-            System.out.println("对象外部: " + GraphLayout.parseInstance(buffer).toPrintable());
+            System.out.println("对象: " + GraphLayout.parseInstance(buffer).toPrintable());
             System.out.println("出去了");
         }
     }
