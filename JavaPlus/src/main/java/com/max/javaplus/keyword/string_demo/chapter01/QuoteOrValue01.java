@@ -12,15 +12,24 @@ import org.openjdk.jol.info.GraphLayout;
  **/
 public class QuoteOrValue01 {
 
+    /**
+     * ClassLayout.parseInstance(object).toPrintable(): 查看对象内部信息.
+     * GraphLayout.parseInstance(object).toPrintable(): 查看对象外部信息，包括引用的对象.
+     * GraphLayout.parseInstance(object).totalSize(): 查看对象总大小.
+     **/
+
     public static void main(String[] args) {
         String a = new String("a");
-        System.out.println("对象: " + GraphLayout.parseInstance(a).toPrintable());
-        System.out.println("对象: " + GraphLayout.parseInstance("a").toPrintable());
-        a = "b";
+//        User a = new User();
+        a.hashCode();
+        System.out.println("对象内部信息: " + ClassLayout.parseInstance(a).toPrintable());
+        System.out.println("对象外部信息: " + GraphLayout.parseInstance(a).toPrintable());
+//        System.out.println("对象外部信息: " + GraphLayout.parseInstance("a").toPrintable());
+/*        a = "b";
         System.out.println("对象: " + GraphLayout.parseInstance(a).toPrintable());
         System.out.println("对象: " + GraphLayout.parseInstance("b").toPrintable());
         //changeValue(a);
-        System.out.println(a);
+        System.out.println(a);*/
     }
 
     public static void changeValue(String temp) {
@@ -30,5 +39,10 @@ public class QuoteOrValue01 {
         a += "a";
 
 
+    }
+
+    public static class User {
+        private String name;
+        private Integer age;
     }
 }

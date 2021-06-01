@@ -12,6 +12,12 @@ import org.openjdk.jol.info.GraphLayout;
  **/
 public class QuoteOrValue02 {
     public static void main(String[] args) {
+        /**
+         * ClassLayout.parseInstance(object).toPrintable(): 查看对象内部信息.
+         * GraphLayout.parseInstance(object).toPrintable(): 查看对象外部信息，包括引用的对象.
+         * GraphLayout.parseInstance(object).totalSize(): 查看对象总大小.
+         **/
+
         MyClass myClass = new MyClass();
         StringBuffer buffer = new StringBuffer("hello");
         //通过jol工具包打印对象的地址
