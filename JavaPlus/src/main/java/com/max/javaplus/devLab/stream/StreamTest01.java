@@ -1,6 +1,9 @@
 package com.max.javaplus.devLab.stream;
 
+import lombok.Data;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -17,5 +20,15 @@ public class StreamTest01 {
     @Test
     public void test01() {
 
+//        List<User> temp = new ArrayList<>();
+        List<User> temp = null;
+        System.out.println(temp.stream().findFirst().isPresent());
+
     }
+    @Data
+    public static class User {
+        public String name;
+        public Integer age;
+    }
+
 }
