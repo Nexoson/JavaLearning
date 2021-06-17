@@ -54,7 +54,11 @@ public class CreateStreamWaysTest {
     @Test
     public void method04() {
         List<Integer> list = Arrays.asList(1, 3, 5, 7, 9, 11, 13);
+        Stream<Integer> parallel = list.stream().parallel();
+        parallel.forEach(System.out::println);
+
         Optional<Integer> findFirst = list.stream().parallel().filter(x -> x > 6).findFirst();
+        System.out.println(findFirst.get());
     }
 
 }

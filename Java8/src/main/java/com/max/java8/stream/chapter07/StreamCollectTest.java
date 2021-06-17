@@ -67,7 +67,7 @@ public class StreamCollectTest {
         Optional<Integer> max = personList.stream().map(Person::getSalary).collect(Collectors.maxBy(Integer::compare));
         // 求工资之和
         IntSummaryStatistics sum = personList.stream().collect(Collectors.summarizingInt(Person::getSalary));
-        // 一次性统计所有信息
+        // 一次性统计所有工资
         DoubleSummaryStatistics collect = personList.stream().collect(Collectors.summarizingDouble(Person::getSalary));
 
         System.out.println("员工总数：" + count);
