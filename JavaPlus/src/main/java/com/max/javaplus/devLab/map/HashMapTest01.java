@@ -24,6 +24,9 @@ public class HashMapTest01 {
         String str = statusData.get(null);
         log.info("str: " + str);
 
+        Integer num = 8;
+        Integer.valueOf(8);
+
     }
 
     public static final Map<String, String> statusData = new HashMap<String, String>() {{
