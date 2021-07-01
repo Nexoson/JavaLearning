@@ -38,3 +38,6 @@ hs_err_pid*
 *.iml
 out
 gen
+/test.idea
+/Java8/target/classes/
+/JavaPlus/target/classes/
