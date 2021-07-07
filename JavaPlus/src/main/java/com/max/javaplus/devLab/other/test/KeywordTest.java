@@ -11,7 +11,7 @@ import org.junit.Test;
  * @date 2021/6/22 20:08
  * @desc Java
  **/
-public class keywordTest {
+public class KeywordTest {
 
     public static void main(String[] args) {
         boolean f1 = true;
