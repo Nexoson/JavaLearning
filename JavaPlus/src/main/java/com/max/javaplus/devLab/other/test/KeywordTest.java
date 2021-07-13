@@ -1,5 +1,6 @@
 package com.max.javaplus.devLab.other.test;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Test;
@@ -51,9 +52,16 @@ public class KeywordTest {
         System.out.println(ObjectUtils.allNotNull(cat));
     }
 
+    @Test
+    public void test04() {
+        String testStr = "\"IE06016287RU\"";
+        String parse = JSONObject.parse(testStr).toString();
+        System.out.println(parse);
+    }
+
 
     @Data
-    public class Cat{
+    public class Cat {
         public String name;
         public Integer age;
     }
