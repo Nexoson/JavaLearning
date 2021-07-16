@@ -1,7 +1,9 @@
 package com.max.javaplus.common_utils;
 
+import com.google.common.collect.*;
 import lombok.Data;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -9,7 +11,10 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -166,7 +171,7 @@ public class JavaInnerUtilsTest {
     @Test
     public void test10() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         User user = new User();
-        BeanUtils.setProperty(user,"id",1);
+        BeanUtils.setProperty(user, "id", 1);
         BeanUtils.setProperty(user, "name", "max");
         System.out.println(BeanUtils.getProperty(user, "name"));
         System.out.println(user);
@@ -180,7 +185,7 @@ public class JavaInnerUtilsTest {
     @Test
     public void test11() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         User user = new User();
-        BeanUtils.setProperty(user,"id",1);
+        BeanUtils.setProperty(user, "id", 1);
         BeanUtils.setProperty(user, "name", "max");
         // 对象转map
         Map<String, String> map = BeanUtils.describe(user);
@@ -195,10 +200,118 @@ public class JavaInnerUtilsTest {
 
 
     /**
+     * 对象和map互转
+     **/
+    @Test
+    public void test12() throws IOException {
+        File file = new File("demo.txt");
+        // 读取文件
+        List<String> lines = FileUtils.readLines(file, Charset.defaultCharset());
+        // 写入文件
+        FileUtils.writeLines(new File("demo2.txt"), lines);
+        // 复制文件
+//        FileUtils.copyFile(srcFile, destFile);
+    }
+
+    /**
+     * 创建集合
+     **/
+    @Test
+    public void test13() {
+        List<String> list = Lists.newArrayList();
+        List<Integer> list1 = Lists.newArrayList(1, 2, 3);
+
+        // 反转list
+        List<Integer> reverse = Lists.reverse(list1);
+        System.out.println(reverse);
+        // list集合元素太多，可以分成若干个集合，每个集合10个元素
+        List<List<Integer>> partition = Lists.partition(list1, 10);
+
+        Map<String, String> map = Maps.newHashMap();
+        Set<String> set = Sets.newHashSet();
+    }
+
+    /**
+     * 黑科技集合01
+     **/
+    @Test
+    public void test14() {
+        Multimap<String, Integer> map = ArrayListMultimap.create();
+        map.put("key", 1);
+        map.put("key", 2);
+        Collection<Integer> values = map.get("key");
+        // 输出 {"key":[1,2]}
+        System.out.println(map);
+        // 还能返回你以前使用的臃肿的Map
+        Map<String, Collection<Integer>> collectionMap = map.asMap();
+    }
+
+    /**
+     * 黑科技集合02
+     **/
+    @Test
+    public void test15() {
+        BiMap<String, String> biMap = HashBiMap.create();
+        // 如果value重复，put方法会抛异常，除非用forcePut方法
+        biMap.put("key", "value");
+        // 输出 {"key":"value"}
+        System.out.println(biMap);
+        // 既然value不能重复，何不实现个翻转key/value的方法，已经有了
+        BiMap<String, String> inverse = biMap.inverse();
+        // 输出 {"value":"key"}
+        System.out.println(inverse);
+    }
+
+    /**
+     * 黑科技集合03
+     **/
+    @Test
+    public void test16() {
+        // 一批用户，同时按年龄和性别分组
+        Table<Integer, String, String> table = HashBasedTable.create();
+        table.put(18, "男", "yideng");
+        table.put(18, "女", "Lily");
+        // 输出 yideng
+        System.out.println(table.get(18, "男"));
+        // 这其实是一个二维的Map，可以查看行数据
+        Map<String, String> row = table.row(18);
+        // 输出 {"男":"yideng","女":"Lily"}
+        System.out.println(row);
+        // 查看列数据
+        Map<Integer, String> column = table.column("男");
+        // 输出 {18:"yideng"}
+        System.out.println(column);
+    }
+
+    /**
+     * 黑科技集合04
+     **/
+    @Test
+    public void test17() {
+        Multiset<String> multiset = HashMultiset.create();
+        multiset.add("apple");
+        multiset.add("apple");
+        multiset.add("orange");
+        // 输出 2
+        System.out.println(multiset.count("apple"));
+        // 查看去重的元素
+        Set<String> set = multiset.elementSet();
+        // 输出 ["orange","apple"]
+        System.out.println(set);
+        // 还能查看没有去重的元素
+        Iterator<String> iterator = multiset.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+        // 还能手动设置某个元素出现的次数
+        multiset.setCount("apple", 5);
+    }
+
+    /**
      * User for test10
      **/
     @Data
-    public class User{
+    public class User {
         private Integer id;
         private String name;
 
