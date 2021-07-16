@@ -1,10 +1,12 @@
 package com.max.javaplus.common_utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -69,7 +71,33 @@ public class JavaInnerUtilsTest {
         // 差集
         list1.removeAll(list2);
         System.out.println(list1);
-
     }
 
+
+    /**
+     * 比较两个对象是否相等(对null对象进行处理)
+     **/
+    @Test
+    public void test04(){
+        String A = "AAA";
+//        String B = "AAA";
+        String B = null;
+        System.out.println(Objects.equals(A, B));
+    }
+
+    /**
+     * 字符串判空
+     **/
+    @Test
+    public void test05(){
+        StringUtils.isEmpty("AAA");
+        StringUtils.isNotEmpty("AAA");
+        // 判空的时候，会去除字符串中的空白字符，比如空格、换行、制表符
+        StringUtils.isBlank("AAA");
+        StringUtils.isNotBlank("AAA");
+
+//        String[] css = {"A","B"};
+        String[] css = {};
+        System.out.println(StringUtils.isAllBlank(css));
+    }
 }
