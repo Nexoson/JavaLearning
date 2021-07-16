@@ -1,12 +1,12 @@
 package com.max.javaplus.common_utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.text.ParseException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -78,7 +78,7 @@ public class JavaInnerUtilsTest {
      * 比较两个对象是否相等(对null对象进行处理)
      **/
     @Test
-    public void test04(){
+    public void test04() {
         String A = "AAA";
 //        String B = "AAA";
         String B = null;
@@ -89,7 +89,7 @@ public class JavaInnerUtilsTest {
      * 字符串判空
      **/
     @Test
-    public void test05(){
+    public void test05() {
         StringUtils.isEmpty("AAA");
         StringUtils.isNotEmpty("AAA");
         // 判空的时候，会去除字符串中的空白字符，比如空格、换行、制表符
@@ -100,4 +100,45 @@ public class JavaInnerUtilsTest {
         String[] css = {};
         System.out.println(StringUtils.isAllBlank(css));
     }
+
+    /**
+     * 首字母转大写,转小写
+     **/
+    @Test
+    public void test06() {
+        String str = "huang";
+        System.out.println(StringUtils.capitalize(str));
+
+        String AAA = "AAA";
+        System.out.println(StringUtils.uncapitalize(AAA));
+    }
+
+    /**
+     * 重复拼接字符串
+     **/
+    @Test
+    public void test07() {
+        System.out.println(StringUtils.repeat("abc", 3));
+    }
+
+    /**
+     * 格式化日期
+     **/
+    @Test
+    public void test08() throws ParseException {
+        // Date类型转String类型
+        String date = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
+        // 输出 2021-05-01 01:01:01
+        System.out.println(date);
+
+
+        // String类型转Date类型
+        Date date1 = DateUtils.parseDate("2021-08-01 01:01:01", "yyyy-MM-dd HH:mm:ss");
+
+        // 计算2小时后的日期
+        System.out.println(DateUtils.addHours(new Date(), 2));
+
+
+    }
+
 }
