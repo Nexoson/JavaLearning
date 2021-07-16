@@ -1,4 +1,4 @@
-package com.max.javaplus.convertData.obj2url;
+package com.max.javaplus.convert_data.obj2url;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

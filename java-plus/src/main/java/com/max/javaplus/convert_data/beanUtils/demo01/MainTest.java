@@ -1,9 +1,9 @@
-package com.max.javaplus.convertData.beanUtils.demo01;
+package com.max.javaplus.convert_data.beanUtils.demo01;
 
-import com.max.javaplus.convertData.beanUtils.demo01.father.UpData;
-import com.max.javaplus.convertData.beanUtils.demo01.father.UpInfo;
-import com.max.javaplus.convertData.beanUtils.demo01.son.MyData;
-import com.max.javaplus.convertData.beanUtils.demo01.son.MyInfo;
+import com.max.javaplus.convert_data.beanUtils.demo01.father.UpData;
+import com.max.javaplus.convert_data.beanUtils.demo01.father.UpInfo;
+import com.max.javaplus.convert_data.beanUtils.demo01.son.MyData;
+import com.max.javaplus.convert_data.beanUtils.demo01.son.MyInfo;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;

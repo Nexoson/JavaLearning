@@ -1,4 +1,4 @@
-package com.max.javaplus.convertData.beanUtils.demo01.father;
+package com.max.javaplus.convert_data.beanUtils.demo01.father;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

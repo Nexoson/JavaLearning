@@ -1,4 +1,4 @@
-package com.max.javaplus.convertData.customFastJson;
+package com.max.javaplus.convert_data.customFastJson;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.*;

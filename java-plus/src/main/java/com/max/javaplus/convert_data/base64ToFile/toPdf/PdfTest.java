@@ -1,4 +1,4 @@
-package com.max.javaplus.convertData.base64ToFile.toPdf;
+package com.max.javaplus.convert_data.base64ToFile.toPdf;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
