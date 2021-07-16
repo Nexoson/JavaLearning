@@ -3,6 +3,8 @@ package com.max.javaplus.common_utils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -137,8 +139,21 @@ public class JavaInnerUtilsTest {
 
         // 计算2小时后的日期
         System.out.println(DateUtils.addHours(new Date(), 2));
+    }
 
+    /**
+     * 包装临时对象
+     **/
+    @Test
+    public void test09() {
 
+        // 返回两个字段
+        ImmutablePair<Integer, String> pair = ImmutablePair.of(1, "huang");
+        System.out.println(pair.getLeft() + pair.getRight());
+
+        // 返回三个字段
+        ImmutableTriple<Integer, String, Date> max = ImmutableTriple.of(1, "max", new Date());
+        System.out.println(max.getLeft() + "," + max.getMiddle() + "," + max.getRight());
     }
 
 }
