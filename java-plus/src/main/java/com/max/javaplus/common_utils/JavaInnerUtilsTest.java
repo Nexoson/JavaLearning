@@ -1,5 +1,7 @@
 package com.max.javaplus.common_utils;
 
+import lombok.Data;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -7,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -156,4 +159,48 @@ public class JavaInnerUtilsTest {
         System.out.println(max.getLeft() + "," + max.getMiddle() + "," + max.getRight());
     }
 
+
+    /**
+     * common-beanutils 操作对象
+     **/
+    @Test
+    public void test10() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        User user = new User();
+        BeanUtils.setProperty(user,"id",1);
+        BeanUtils.setProperty(user, "name", "max");
+        System.out.println(BeanUtils.getProperty(user, "name"));
+        System.out.println(user);
+
+    }
+
+
+    /**
+     * 对象和map互转
+     **/
+    @Test
+    public void test11() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        User user = new User();
+        BeanUtils.setProperty(user,"id",1);
+        BeanUtils.setProperty(user, "name", "max");
+        // 对象转map
+        Map<String, String> map = BeanUtils.describe(user);
+        System.out.println(map);
+        // map转对象
+        User newUser = new User();
+        BeanUtils.populate(newUser, map);
+        // 输出 {"id":1,"name":"max"}
+        System.out.println(newUser);
+
+    }
+
+
+    /**
+     * User for test10
+     **/
+    @Data
+    public class User{
+        private Integer id;
+        private String name;
+
+    }
 }

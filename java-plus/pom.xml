@@ -80,7 +80,12 @@
             <artifactId>jol-core</artifactId>
             <version>0.14</version>
         </dependency>
-
+        <!--common-beanutils 操作对象-->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
     </dependencies>
 
     <build>
