@@ -1,4 +1,4 @@
-package com.max.javaplus.leetcode;
+package com.max.javaplus.leetcode.exercises;
 
 import java.util.ArrayList;
 import java.util.List;

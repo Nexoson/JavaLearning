@@ -1,4 +1,4 @@
-package com.max.javaplus.leetcode;
+package com.max.javaplus.leetcode.exercises;
 
 /**
  * @author huangX huangxun@lidomtech.com
