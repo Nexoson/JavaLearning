@@ -8,6 +8,8 @@ package com.max.javaplus.multithreading.chapter02.key_join;
  * @desc thread.join()  参考: https://www.jianshu.com/p/fc51be7e5bc0
  **/
 public class JoinDemo extends Thread {
+    // thread.join() 就是指定线程插队,等其执行完,再执行其它线程
+
     int i;
     // 上一个线程
     Thread previousThread;
