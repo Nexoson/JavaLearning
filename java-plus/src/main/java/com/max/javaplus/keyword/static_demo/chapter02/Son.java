@@ -25,6 +25,7 @@ public class Son extends Father {
         System.out.println(8);
     }
 
+    @Override
     public int test() {
         System.out.println(9);
         return 1;

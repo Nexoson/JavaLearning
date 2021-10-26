@@ -24,7 +24,7 @@ public class Father {
         System.out.println(3);
     }
 
-    private int test() {
+    public int test() {
         System.out.println(4);
         return 1;
     }
