@@ -11,9 +11,9 @@ public class MySort {
     public static void main(String[] args) {
         int[] initArr = GetInitArr.getInitData();
 //        int[] integers = bubbleSort(initArr);
-//        int[] integers = cocktailSort(initArr);
+        int[] integers = cocktailSort(initArr);
 //        int[] integers = selectionSort(initArr);
-        int[] integers = insertionSort(initArr);
+//        int[] integers = insertionSort(initArr);
         for (int i = integers.length - 1; i >= 0; i--) {
             System.out.println(integers[i]);
         }

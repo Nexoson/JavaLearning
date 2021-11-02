@@ -7,6 +7,10 @@
     <groupId>org.max</groupId>
     <artifactId>java-learning</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>spring-core</module>
+        <module>java-plus</module>
+    </modules>
     <packaging>pom</packaging>
 
 
