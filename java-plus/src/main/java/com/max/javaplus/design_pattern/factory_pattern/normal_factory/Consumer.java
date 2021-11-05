@@ -9,6 +9,7 @@ package com.max.javaplus.design_pattern.factory_pattern.normal_factory;
  **/
 public class Consumer {
     public static void main(String[] args) {
+        // 工厂方法模式测试
         Car c1 = new WulingFactory().getCar();
         c1.getName();
         Car c2 = new TeslaFactory().getCar();
