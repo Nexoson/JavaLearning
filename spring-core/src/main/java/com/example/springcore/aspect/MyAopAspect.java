@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * @className MyAopAspect
  * @date 2021/11/2 15:34
- * @desc
+ * @desc 切面配置
  **/
 
 @Aspect
