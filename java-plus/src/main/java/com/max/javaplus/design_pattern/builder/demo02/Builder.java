@@ -1,6 +1,5 @@
 package com.max.javaplus.design_pattern.builder.demo02;
 
-import com.max.javaplus.design_pattern.builder.demo01.Product;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -13,27 +12,27 @@ public abstract class Builder {
     /**
      * 鸡肉汉堡
      **/
-    abstract void buildA(String msg);
+    abstract Builder buildA(String msg);
 
     /**
      * 柠檬可乐
      **/
-    abstract void buildB(String msg);
+    abstract Builder buildB(String msg);
 
     /**
      * 鸡肉卷
      **/
-    abstract void buildC(String msg);
+    abstract Builder buildC(String msg);
 
     /**
      * 椒盐鸡块
      **/
-    abstract void buildD(String msg);
+    abstract Builder buildD(String msg);
 
     /**
      * 薯条
      **/
-    abstract void buildE(String msg);
+    abstract Builder buildE(String msg);
 
     /**
      * 出餐

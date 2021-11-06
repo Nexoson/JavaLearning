@@ -7,7 +7,7 @@ import lombok.Data;
  * @version 1.0
  * @className Product
  * @date 2021/11/5 20:19
- * @desc 产品
+ * @desc 产品, 有默认套餐
  **/
 @Data
 public class Product {
@@ -17,5 +17,4 @@ public class Product {
     private String productC = "鸡肉卷";
     private String productD = "椒盐鸡块";
     private String productE = "薯条";
-
 }

@@ -1,6 +1,5 @@
 package com.max.javaplus.design_pattern.builder.demo02;
 
-import com.max.javaplus.design_pattern.builder.demo01.Product;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -11,34 +10,44 @@ import com.max.javaplus.design_pattern.builder.demo01.Product;
  **/
 public class Worker extends Builder{
 
+    private Product product;
 
-    @Override
-    void buildA(String msg) {
-
+    public Worker() {
+        product = new Product();
     }
 
     @Override
-    void buildB(String msg) {
-
+    Builder buildA(String msg) {
+        product.setProductA(msg);
+        return this;
     }
 
     @Override
-    void buildC(String msg) {
-
+    Builder buildB(String msg) {
+        product.setProductB(msg);
+        return this;
     }
 
     @Override
-    void buildD(String msg) {
-
+    Builder buildC(String msg) {
+        product.setProductC(msg);
+        return this;
     }
 
     @Override
-    void buildE(String msg) {
+    Builder buildD(String msg) {
+        product.setProductD(msg);
+        return this;
+    }
 
+    @Override
+    Builder buildE(String msg) {
+        product.setProductE(msg);
+        return this;
     }
 
     @Override
     Product createProduct() {
-        return null;
+        return product;
     }
 }
