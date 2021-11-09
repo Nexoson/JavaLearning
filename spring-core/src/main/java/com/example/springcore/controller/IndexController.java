@@ -101,9 +101,19 @@ public class IndexController {
 
     /**
      * 用Redisson实现分布式锁
+     * 问题1 如果临时要求提升10倍性能,代码如何优化
+     * 解决: 对应商品库存比如为1000, 则分十组 用productId_1 -> productId_10, 即分段锁的概念, 参考CurrentHashMap底层原理
+     *
+     * 问题2 如果redis集群或者主从架构, 主从节点正在同步时,主节点宕机,则会丢失锁信息
+     * 解决: 1.用zookeeper保证CP(一致性和分区容错性) 2.redlock(不推荐)
      **/
     @GetMapping("stock/deduct")
     public String deductStock03() {
+        /**
+         * CAP原则又称CAP定理，指的是在一个分布式系统中，一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）。
+         * CAP 原则指的是，这三个要素最多只能同时实现两点，不可能三者兼顾。
+         **/
+
         // 商品id
         String lockKey = "product_001";
         String clientId = UUID.randomUUID().toString();
