@@ -11,6 +11,7 @@
         <module>spring-core</module>
         <module>java-plus</module>
         <module>spring-core</module>
+        <module>my-spring</module>
     </modules>
     <packaging>pom</packaging>
 
