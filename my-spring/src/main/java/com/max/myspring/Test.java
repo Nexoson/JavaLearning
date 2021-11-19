@@ -1,7 +1,7 @@
 package com.max.myspring;
 
 import com.max.myspring.config.AppConfig;
-import com.max.myspring.service.UserService;
+import com.max.myspring.inter.UserService;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -26,8 +26,8 @@ public class Test {
 /*        System.out.println(applicationContext.getBean("userService"));
         System.out.println(applicationContext.getBean("userService"));
         System.out.println(applicationContext.getBean("userService"));*/
-        UserService userService = (UserService) applicationContext.getBean("userService");
-        userService.test();
+        UserService UserService = (UserService) applicationContext.getBean("userService");
+        UserService.test();
     }
 
 }

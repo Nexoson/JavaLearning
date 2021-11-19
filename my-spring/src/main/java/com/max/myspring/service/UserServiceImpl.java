@@ -5,6 +5,7 @@ import com.max.myspring.annotation.Component;
 import com.max.myspring.annotation.Scope;
 import com.max.myspring.inter.BeanNameAware;
 import com.max.myspring.inter.InitializingBean;
+import com.max.myspring.inter.UserService;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -16,13 +17,14 @@ import com.max.myspring.inter.InitializingBean;
 
 @Component("userService")
 @Scope("prototype")
-public class UserService implements BeanNameAware, InitializingBean {
+public class UserServiceImpl implements BeanNameAware, InitializingBean, UserService {
 
     @Autowired
     private OrderService orderService;
 
     private String beanName;
 
+    @Override
     public void test() {
         System.out.println(orderService);
         System.out.println(beanName);

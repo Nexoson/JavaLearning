@@ -77,16 +77,18 @@ public class MaxApplicationContext {
             }
 
             // 初始化前
-            for(BeanPostProcessor beanPostProcessor : beanPostProcessorList){
-                instance = beanPostProcessor.postProcessBeforeInitialization(instance,beanName);
+            for (BeanPostProcessor beanPostProcessor : beanPostProcessorList) {
+                instance = beanPostProcessor.postProcessBeforeInitialization(instance, beanName);
             }
-            // 初始化后
-            for(BeanPostProcessor beanPostProcessor : beanPostProcessorList){
-                instance = beanPostProcessor.postProcessAfterInitialization(instance,beanName);
-            }
+
             // 初始化
-            if(instance instanceof InitializingBean){
-                ((InitializingBean)instance).afterPropertiesSet();
+            if (instance instanceof InitializingBean) {
+                ((InitializingBean) instance).afterPropertiesSet();
+            }
+
+            // 初始化后
+            for (BeanPostProcessor beanPostProcessor : beanPostProcessorList) {
+                instance = beanPostProcessor.postProcessAfterInitialization(instance, beanName);
             }
             return instance;
 
@@ -128,7 +130,7 @@ public class MaxApplicationContext {
     /**
      * 扫描
      **/
-    private void scanBean(Class<com.max.myspring.config.AppConfig> configClass)  {
+    private void scanBean(Class<com.max.myspring.config.AppConfig> configClass) {
         ComponentScan componentScanAnnotation = (ComponentScan) configClass.getDeclaredAnnotation(ComponentScan.class);
         // 找到扫描路径
         String path = componentScanAnnotation.value();
