@@ -5,11 +5,15 @@ import com.max.myspring.annotation.Component;
 import com.max.myspring.annotation.ComponentScan;
 import com.max.myspring.annotation.Scope;
 import com.max.myspring.inter.BeanNameAware;
+import com.max.myspring.inter.BeanPostProcessor;
+import com.max.myspring.inter.InitializingBean;
 
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -31,6 +35,7 @@ public class MaxApplicationContext {
      * 存储所有数据
      **/
     private ConcurrentHashMap<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
+    private List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
 
     public MaxApplicationContext(Class<com.max.myspring.config.AppConfig> configClass) {
         this.configClass = configClass;
@@ -66,12 +71,27 @@ public class MaxApplicationContext {
                     }
                 }
             }
-
+            // Aware回调
             if (instance instanceof BeanNameAware) {
                 ((BeanNameAware) instance).setBeanName(beanName);
             }
 
+            // 初始化前
+            for(BeanPostProcessor beanPostProcessor : beanPostProcessorList){
+                instance = beanPostProcessor.postProcessBeforeInitialization(instance,beanName);
+            }
+            // 初始化后
+            for(BeanPostProcessor beanPostProcessor : beanPostProcessorList){
+                instance = beanPostProcessor.postProcessAfterInitialization(instance,beanName);
+            }
+            // 初始化
+            if(instance instanceof InitializingBean){
+                ((InitializingBean)instance).afterPropertiesSet();
+            }
             return instance;
+
+            // BeanPostProcessor(Bean实例化前后处理)
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -79,6 +99,8 @@ public class MaxApplicationContext {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -106,7 +128,7 @@ public class MaxApplicationContext {
     /**
      * 扫描
      **/
-    private void scanBean(Class<com.max.myspring.config.AppConfig> configClass) {
+    private void scanBean(Class<com.max.myspring.config.AppConfig> configClass)  {
         ComponentScan componentScanAnnotation = (ComponentScan) configClass.getDeclaredAnnotation(ComponentScan.class);
         // 找到扫描路径
         String path = componentScanAnnotation.value();
@@ -134,9 +156,14 @@ public class MaxApplicationContext {
                         Class<?> clazz = classLoader.loadClass(className);
                         if (clazz.isAnnotationPresent(Component.class)) {
                             // 表示当前这个类是一个Bean
-                            // 解析类  判断bean是单例还是多例(prototype)
-                            // BeanDefinition
+                            // 解析类  BeanDefinition
                             Component componentAnnotation = clazz.getDeclaredAnnotation(Component.class);
+
+                            if (BeanPostProcessor.class.isAssignableFrom(clazz)) {
+                                BeanPostProcessor instance = (BeanPostProcessor) clazz.getDeclaredConstructor().newInstance();
+                                beanPostProcessorList.add(instance);
+                            }
+
                             String beanName = componentAnnotation.value();
 
                             BeanDefinition beanDefinition = new BeanDefinition();
@@ -151,7 +178,13 @@ public class MaxApplicationContext {
                             beanDefinitionMap.put(beanName, beanDefinition);
 
                         }
-                    } catch (ClassNotFoundException e) {
+                    } catch (ClassNotFoundException | NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
 

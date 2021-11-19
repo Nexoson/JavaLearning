@@ -4,6 +4,7 @@ import com.max.myspring.annotation.Autowired;
 import com.max.myspring.annotation.Component;
 import com.max.myspring.annotation.Scope;
 import com.max.myspring.inter.BeanNameAware;
+import com.max.myspring.inter.InitializingBean;
 
 /**
  * @author huangX huangxun@lidomtech.com
@@ -15,7 +16,7 @@ import com.max.myspring.inter.BeanNameAware;
 
 @Component("userService")
 @Scope("prototype")
-public class UserService implements BeanNameAware {
+public class UserService implements BeanNameAware, InitializingBean {
 
     @Autowired
     private OrderService orderService;
@@ -27,9 +28,20 @@ public class UserService implements BeanNameAware {
         System.out.println(beanName);
     }
 
+    /**
+     * 对应context中的Aware回调
+     **/
     @Override
     public void setBeanName(String name) {
         beanName = name;
         //...
+    }
+
+    /**
+     * 对应context中的初始化
+     **/
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("初始化");
     }
 }
