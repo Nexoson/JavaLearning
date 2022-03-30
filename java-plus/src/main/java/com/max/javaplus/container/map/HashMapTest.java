@@ -131,7 +131,7 @@ public class HashMapTest {
 
         while (iterator.hasNext()) {
             Integer resKey = iterator.next().getKey();
-            if(result.get(resKey).size() == 1){
+            if (result.get(resKey).size() == 1) {
                 iterator.remove();
             }
         }
@@ -160,6 +160,30 @@ public class HashMapTest {
 
     }
 
+
+    @Test
+    public void test09() {
+        HashMap<Integer, String> hm = new HashMap<>();
+
+        hm.put(11, "张三");
+        hm.put(null, "皮二");
+        hm.put(12, "李四");
+        hm.put(13, "王五");
+        hm.put(14, "赵六");
+        hm.put(15, "田七");
+        hm.put(12, "钱八");
+
+
+        int num1 = Integer.MAX_VALUE;
+        int num2 = 1 << 30;
+        int num3 = (1 << 31) - 1;
+        System.out.println(num1);
+        System.out.println(num2);
+        System.out.println(num3);
+
+
+    }
+
     public static final Map<String, String> statusData = new HashMap<String, String>() {{
         put("DR", "草稿");
         put("OD", "已下单");
@@ -172,4 +196,5 @@ public class HashMapTest {
         put("STOP", "中止");
         put("SB", "已提交");
     }};
+
 }
